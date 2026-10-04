@@ -1,0 +1,13 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Portable 404 handling: only missing files/dirs reach error.php.
+    # Relative substitution resolves inside THIS directory, so the
+    # project keeps working in any subfolder without hard-coded paths.
+    # Existing pages, assets, AJAX endpoints and exports are untouched.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ error.php?code=404 [QSA,L]
+</IfModule>

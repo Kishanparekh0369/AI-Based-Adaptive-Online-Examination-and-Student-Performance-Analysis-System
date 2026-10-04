@@ -1,0 +1,58 @@
+/* ══════════════════════════════════════════════════
+   Shared Chart System — ONE sizing architecture for
+   every Chart.js graph in the application.
+   Rule: the WRAPPER controls the size, never the canvas.
+   Card → .chart-container → canvas
+   ══════════════════════════════════════════════════ */
+
+/* ─── Chart container (the ONLY height authority) ─── */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    min-width: 0;
+}
+
+.chart-container-sm { height: 240px; }
+.chart-container-md { height: 300px; }
+.chart-container-lg { height: 380px; }
+
+.chart-container-doughnut {
+    height: 280px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chart-container-radar { height: 320px; }
+
+/* ─── Canvas: fill the wrapper, nothing else ──────── */
+.chart-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none;
+}
+
+/* ─── Empty state (toggled by ChartManager) ───────── */
+.chart-container.is-empty { display: none; }
+.chart-empty-state.show { display: flex; }
+
+/* ─── Responsive heights ──────────────────────────── */
+@media (max-width: 767.98px) {
+    .chart-container { height: 260px; }
+    .chart-container-sm { height: 220px; }
+    .chart-container-lg { height: 300px; }
+    .chart-container-doughnut { height: 240px; }
+    .chart-container-radar { height: 260px; }
+}
+
+/* ─── Print: keep charts intact on paper/PDF ──────── */
+@media print {
+    .chart-container { break-inside: avoid; }
+    .chart-container canvas { max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chart-container { scroll-behavior: auto; }
+}
